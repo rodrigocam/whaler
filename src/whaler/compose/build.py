@@ -2,11 +2,10 @@
 
 class Build:
     """
-    Represents the "build" option on docker-compose.yml.
+    Representation of the "build" option on docker-compose.yml.
     """
 
-    def __init__(self, obj, file_path):
-        self.file_path = file_path
+    def __init__(self, obj):
         if(isinstance(obj, dict)):
             self.context = obj['context']
             self.dockerfile = obj['dockerfile']
@@ -16,4 +15,4 @@ class Build:
             raise TypeError(f'Invalid "build: {obj}" option')
 
     def is_valid(self):
-        pass
+        raise NotImplementedError
