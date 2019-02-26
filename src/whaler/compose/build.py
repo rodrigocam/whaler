@@ -1,3 +1,4 @@
+import os
 
 
 class Build:
@@ -14,5 +15,10 @@ class Build:
         else:
             raise TypeError(f'Invalid "build: {obj}" option')
 
-    def is_valid(self):
-        raise NotImplementedError
+    def is_valid(self, file_path):
+        context_path = os.path.join(os.path.dirname(file_path), self.context)
+        if not os.path.isfile(os.path.join(context_path, self.dockerfile)):
+            raise FileNotFoundError(
+                f"Dockerfile '{self.dockerfile}' "
+                f"not found at context' {self.context}'"
+            )

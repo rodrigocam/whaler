@@ -1,5 +1,6 @@
 import yaml
-from .utils import is_compose, get_services
+from .utils import is_compose
+from .compose.compose import Compose
 
 
 def process_file(file_path):
@@ -17,5 +18,8 @@ def process_folder(folder):
 
 
 def process_compose(data, file_path):
-    services = list(get_services(data))
-    print(services)
+    compose = Compose(data, file_path)
+
+    for s in compose.services:
+        if s.build:
+            s.build.is_valid(file_path)

@@ -1,4 +1,4 @@
-from .compose import service
+from .compose.service import Service
 
 
 def is_compose(data):
@@ -16,4 +16,11 @@ def get_services(data):
     Return all services of a docker-compose.yml.
     """
     for name, value in data['services'].items():
-        yield service.Service(name, value)
+        yield Service(name, value)
+
+
+def get_version(data):
+    """
+    Return the version of a docker-compose.yml.
+    """
+    return data['version']
